@@ -18,6 +18,8 @@ class EnigmaMachine:
         self.plugboard = plugboard
         self._validate_components()
 
+#do we need to validate the setup?
+
 def _step_rotors(self):
     """
     Step the rotors to simulate the mechanism of the enigma machine after each key press.
