@@ -34,7 +34,16 @@ class Rotor:
 
     
         """
-        pass
+        # Adjust wiring for ring setting
+        adjusted_wiring = self._adjust_wiring_for_ring_setting(self.wiring, self.ring_setting)
+
+        # Create forward and backward mappings
+        alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+        for i in range(26):
+            forward_letter = adjusted_wiring[i]
+            self.forward_map[alphabet[i]] = forward_letter
+            self.backward_map[forward_letter] = alphabet[i]
     
     def _adjust_wiring_for_ring_setting(self, wiring, ring_setting):
         """
@@ -56,3 +65,23 @@ class Rotor:
             Adjusted wiring: "MFLGDQVZNTOWYHXUSPAIBRCJEK"
         """
         return wiring[ring_setting:] + wiring[:ring_setting]
+
+
+    def encode_forward(self,char):
+        """
+        Encode a character through the machone from right to left
+
+        Args:
+            char (str): the character that was "pressed"on the keyboard
+        """
+        #adjusted the character index by the current position
+        #converting to ascii char to 
+        char_index = (ord(char)) - ord('A') + self.position) %26
+        adjusted_char = chr(char_index + ord('A'))
+
+        # Map the character using the forward map
+        encoded_char = self.forward_map[adjusted_char]
+
+        #adjust back by the current position
+        endoded_index = (ord(encoded_char) - ord('A') - self.position)%26
+        return chr(encoded_index + ord('A'))
