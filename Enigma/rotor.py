@@ -85,3 +85,33 @@ class Rotor:
         #adjust back by the current position
         endoded_index = (ord(encoded_char) - ord('A') - self.position)%26
         return chr(encoded_index + ord('A'))
+
+    def encode_backward(self, char):
+        """
+        Encode back after the reflector from left to right
+        Arg:
+            char (str): character to encode
+        Returns:
+            str: encoded char
+        """
+        char_index = (ord(char) - ord('A')+ self.position) % 26
+        adjusted_char = chr(char_index + ord('A'))
+
+        #map to the backwards map
+        encoded_char = self.backward_map[adjusted_char]
+
+        #adjust back by the current position
+        encoded_index = (ord(encoded_char) - ord('A') - self.position) % 26
+        return chr(encoded_index + ord('A'))
+
+    def step(self):
+        """
+        Step the rotor to the next position after each "key" press
+
+        returns:
+            bool: trie if the rotor hits the notch position, spins the next rotor
+        """
+        #wrap back around at 25th position
+        self.position = (self.position +1) % 26
+        return self.position == ord(self.notch) - ord('A')
+    
