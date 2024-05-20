@@ -4,3 +4,5 @@ from .reflector import reflector
 from .plugboard import plugboard
 
 __all__ = ['EnigmaMachine', 'Rotor', 'Reflector', 'Plugboard']
+
+#do I need a display class? 
