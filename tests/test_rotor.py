@@ -26,3 +26,32 @@ class TestRotor(unittest.TestCase):
         self.assertEqual(self.rotor.ring_setting, self.ring_setting)
         self.assertEqual(self.rotor.forward_map['A'], 'E')
         self.assertEqual(self.rotor.backward_map['E'], 'A')
+    
+    def test_step(self):
+        """
+        Test stepping the rotor.
+        """
+        # Step the rotor 1 position
+        self.rotor.step()
+        self.assertEqual(self.rotor.position, 1)
+        
+        # Step the rotor 25 more positions (total 26)
+        for _ in range(25):
+            self.rotor.step()
+        self.assertEqual(self.rotor.position, 0)
+
+    def test_encode_forward(self):
+        """
+        Test encoding a character forward through the rotor.
+        """
+        self.assertEqual(self.rotor.encode_forward('A'), 'E')
+        self.assertEqual(self.rotor.encode_forward('B'), 'K')
+        self.assertEqual(self.rotor.encode_forward('C'), 'M')
+    
+    def test_encode_backward(self):
+        """
+        Test encoding a character backward through the rotor.
+        """
+        self.assertEqual(self.rotor.encode_backward('E'), 'A')
+        self.assertEqual(self.rotor.encode_backward('K'), 'B')
+        self.assertEqual(self.rotor.encode_backward('M'), 'C')
